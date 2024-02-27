@@ -1,5 +1,8 @@
 # GBFRSkillEditor
 
+## Warning
+Please backup your original file
+
 ## Required
 - .NET Runtime 8.0.2
 - GBFRDataTools(https://github.com/Nenkai/GBFRDataTools)
