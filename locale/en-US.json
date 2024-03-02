@@ -29,6 +29,7 @@
   "E4 E0 68 15": "Head Start",
   "8D 27 CE 82": "Less Is More",
   "62 58 3E 33": "Roll of the Die",
+  "28 3C 22 40": "Catastrophe",
   "1C 9A 07 50": "ATK",
   "9B A1 78 8D": "Critical Hit Rate",
   "96 F0 72 F3": "HP",
@@ -58,6 +59,7 @@
   "1E 70 4A DD": "Darkflame Resistance",
   "91 E1 F2 4B": "Attack Down Resistance",
   "B1 60 DE 66": "Defense Down Resistance",
+  "E0 65 AD 0E": "Natural Defenses",
   "2B 37 18 60": "Provoke",
   "9E 59 53 00": "Steady Focus",
   "9D E3 A8 A1": "Stout Heart",
@@ -70,6 +72,8 @@
   "E5 2A 42 5E": "Path to Mastery",
   "CB 33 20 08": "Crabby Resonance",
   "97 98 0D 1B": "Crabvestment Returns",
+  "3F A9 E8 57": "Sigil Booster",
+  "E6 B5 D8 9A": "Seven Net",
   "68 02 03 CD": "Fearless Drive",
   "E2 10 85 A3": "Fearless Spirit",
   "18 D9 FE 3B": "Guardian's Conviction",
@@ -117,5 +121,5 @@
   "0A E1 C8 D2": "Nimble Onslaught",
   "D0 69 DD 7E": "Precise Wrath",
   "7D A7 18 CD": "Potent Greens",
-  "E0 65 AD 0E": "Natural Defenses"
+  "2E 48 2C 3F": "Suplplements"
 }
