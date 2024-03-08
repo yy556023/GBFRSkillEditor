@@ -312,7 +312,9 @@ namespace GBGR.Skill.Editor
 
             var str = BitConverter.ToString(dataByte, 0, dataByte.Length);
             StartStr = str[..24];
-            OrignalStr = str[24..];
+
+            // 2024/03/08 fix Crabvestment Returns issue
+            OrignalStr = str[24..] + "-";
             // 前有8組byte 要先減掉
             // 9 SET
             // 1 Param 1
