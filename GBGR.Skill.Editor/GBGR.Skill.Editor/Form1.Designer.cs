@@ -111,7 +111,7 @@
             // LocaleList
             // 
             LocaleList.FormattingEnabled = true;
-            LocaleList.Items.AddRange(new object[] { "en-US", "ja-JP", "zh-TW" });
+            LocaleList.Items.AddRange(new object[] { "en-US", "ja-JP", "zh-TW", "zh-CN" });
             LocaleList.Location = new Point(667, 28);
             LocaleList.Name = "LocaleList";
             LocaleList.Size = new Size(121, 23);

@@ -217,6 +217,15 @@ namespace GBGR.Skill.Editor
             label1.Text = "技能";
         }
 
+        private void ZhCNInit()
+        {
+            fileToolStripMenuItem.Text = "文件";
+            openToolStripMenuItem.Text = "打开";
+            saveAsToolStripMenuItem.Text = "另存为";
+            SaveButton.Text = "保存";
+            label1.Text = "技能";
+        }
+
         private void LocaleList_SelectedValueChanged(object sender, EventArgs e)
         {
             var locale = LocaleList.SelectedIndex;
@@ -231,6 +240,9 @@ namespace GBGR.Skill.Editor
                     break;
                 case 2:
                     ZhInit();
+                    break;
+                case 3:
+                    ZhCNInit();
                     break;
             };
 
