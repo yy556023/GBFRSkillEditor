@@ -1,32 +1,76 @@
-﻿using System.Data;
+using System.Data;
 using Newtonsoft.Json;
 
 namespace GBGR.Skill.Editor
 {
     public partial class Form1 : Form
     {
-        internal static string StartStr = "";
-        internal static string OrignalStr = "";
+        internal static string CurrentLocale = "";
         internal static string EditedStr = "";
-        internal static bool InitToken = true;
-        internal static DataTable Dt = new();
+        internal static string NullStr = "00-00-00-00-";
+        internal static string OrignalStr = "";
+        internal static string StartStr = "";
+        internal static string SkillId = "";
+
         internal static int SkillIndex = 0;
         internal static int SkillLength = 0;
+
+        internal static bool InitToken = true;
+        internal static bool isNewSave = true;
+
+        internal static List<string> LocaleDropDown = [];
         internal static List<string> SkillList = [];
-        internal static string NullStr = "00-00-00-00-";
-        internal static string SkillId = "";
+        internal static List<Ui> UiText = [];
+
+        internal static DataTable Dt = new();
         internal static OpenFileDialog? OpenFileDialog;
         internal static SaveFileDialog? SaveFileDialog;
-        internal bool isNewSave = true;
 
         public Form1()
         {
             InitializeComponent();
+            LoadUiText();
         }
 
-        private void CustomInit()
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            SaveTblFile();
+        }
+
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenTblFile();
+        }
+
+        private void SkillList_SelectedValueChanged(object sender, EventArgs e)
+        {
+            GetCurrentSkill();
+
+            LoadSkillParameterToDataTable();
+        }
+
+        private void LocaleList_SelectedValueChanged(object sender, EventArgs e)
+        {
+            GetCurrentLocale();
+
+            LocaleInit(CurrentLocale);
+
+            if (OrignalStr != "")
+            {
+                LoadSkillList();
+            }
+        }
+
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            isNewSave = true;
+            SaveTblFile();
+        }
+
+        private void InitDataTable()
         {
             Dt = new DataTable();
+
             Dt.Columns.Add("Level (lv)");
             Dt.Columns.Add("Param 1");
             Dt.Columns.Add("Param 2");
@@ -35,20 +79,10 @@ namespace GBGR.Skill.Editor
             Dt.Columns.Add("Param 5");
             Dt.Columns.Add("Param 6");
 
-            dataGridView1.DataSource = Dt;
+            DataGridView1.DataSource = Dt;
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            SaveTblFile();
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenTblFile();
-        }
-
-        private void SkillList_SelectedValueChanged(object sender, EventArgs e)
+        private void GetCurrentSkill()
         {
             if (InitToken && OrignalStr == "")
             {
@@ -80,18 +114,18 @@ namespace GBGR.Skill.Editor
             SkillLength = indexList.Count * 108;
             SkillList = skillList;
             SkillId = skillList[0].Substring(72, 24);
-
-            Dt.Clear();
-            ShowDetail();
         }
 
-        private void ShowDetail()
+        private void LoadSkillParameterToDataTable()
         {
+            Dt.Clear();
+
             foreach (var item in SkillList)
             {
                 var temp = item.Split("-");
 
                 var row = Dt.NewRow();
+
                 row[0] = Convert.ToInt32(temp[32], 16);
                 row[1] = BitConverter.ToSingle([Convert.ToByte(temp[0], 16), Convert.ToByte(temp[1], 16), Convert.ToByte(temp[2], 16), Convert.ToByte(temp[3], 16)]);
                 row[2] = BitConverter.ToSingle([Convert.ToByte(temp[4], 16), Convert.ToByte(temp[5], 16), Convert.ToByte(temp[6], 16), Convert.ToByte(temp[7], 16)]);
@@ -163,16 +197,15 @@ namespace GBGR.Skill.Editor
             return [.. byteArray];
         }
 
-        private void LocaleInit()
+        private void LoadSkillList()
         {
-            var locale = LocaleList.SelectedItem!.ToString();
-#if DEBUG            
-            var json = File.ReadAllText($"E:\\repo\\GBFR.Skill.Editor\\locale\\{locale}.json");
+#if DEBUG
+            var json = File.ReadAllText($"E:\\repo\\GBFR.Skill.Editor\\locale\\{CurrentLocale}.json");
 #else
-            var json = File.ReadAllText($".\\locale\\{locale}.json");
+            var json = File.ReadAllText($".\\locale\\{CurrentLocale}.json");
 #endif
 
-            var skillDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json) ?? throw new Exception("DeserializeObject Failed");
+            var skillDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json)!;
             var skillList = new List<Skill>();
 
             foreach (var item in skillDict)
@@ -190,68 +223,36 @@ namespace GBGR.Skill.Editor
             SkillListComboBox.DisplayMember = "Name";
         }
 
-        private void JaInit()
+        private void LoadUiText()
         {
-            fileToolStripMenuItem.Text = "ファイル";
-            openToolStripMenuItem.Text = "開く";
-            saveAsToolStripMenuItem.Text = "名前を付けて保存";
-            SaveButton.Text = "セーブ";
-            label1.Text = "スキル";
+#if DEBUG
+            var uIjson = File.ReadAllText("E:\\repo\\GBFR.Skill.Editor\\locale\\Ui.json");
+#else
+            var uIjson = File.ReadAllText(".\\locale\\Ui.json");
+#endif
+
+            UiText = JsonConvert.DeserializeObject<List<Ui>>(uIjson)!;
+
+            LocaleList.DataSource = UiText.Select(x => x.Code).ToList();
         }
 
-        private void EnInit()
+        private void LocaleInit(string locale)
         {
-            fileToolStripMenuItem.Text = "File";
-            openToolStripMenuItem.Text = "Open";
-            saveAsToolStripMenuItem.Text = "Save As";
-            SaveButton.Text = "Save";
-            label1.Text = "Skill";
+            var currentUiText = UiText.Where(x => x.Code == locale).First();
+
+            FileToolStripMenuItem.Text = currentUiText.FileToolStripMenuItem;
+            OpenToolStripMenuItem.Text = currentUiText.OpenToolStripMenuItem;
+            SaveAsToolStripMenuItem.Text = currentUiText.SaveAsToolStripMenuItem;
+            SaveButton.Text = currentUiText.SaveButton;
+            SkillLabel.Text = currentUiText.SkillLabel;
         }
 
-        private void ZhInit()
+        private void GetCurrentLocale()
         {
-            fileToolStripMenuItem.Text = "檔案";
-            openToolStripMenuItem.Text = "開啟";
-            saveAsToolStripMenuItem.Text = "另存新檔";
-            SaveButton.Text = "儲存";
-            label1.Text = "技能";
+            CurrentLocale = LocaleList.SelectedItem != null ? LocaleList.SelectedItem.ToString()! : LocaleList.SelectedText!;
         }
 
-        private void ZhCNInit()
-        {
-            fileToolStripMenuItem.Text = "文件";
-            openToolStripMenuItem.Text = "打开";
-            saveAsToolStripMenuItem.Text = "另存为";
-            SaveButton.Text = "保存";
-            label1.Text = "技能";
-        }
-
-        private void LocaleList_SelectedValueChanged(object sender, EventArgs e)
-        {
-            var locale = LocaleList.SelectedIndex;
-
-            switch (locale)
-            {
-                case 0:
-                    EnInit();
-                    break;
-                case 1:
-                    JaInit();
-                    break;
-                case 2:
-                    ZhInit();
-                    break;
-                case 3:
-                    ZhCNInit();
-                    break;
-            };
-
-            if (OrignalStr != "")
-            {
-                LocaleInit();
-            }
-        }
-
+        #region SaveTblFile 儲存Tbl檔案
         private void SaveTblFile()
         {
             SaveFileDialog ??= new SaveFileDialog
@@ -282,7 +283,9 @@ namespace GBGR.Skill.Editor
 
             MessageBox.Show("Save Success", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
+        #endregion
 
+        #region OpenTblFile 開啟Tbl檔案
         private void OpenTblFile()
         {
             isNewSave = true;
@@ -298,22 +301,12 @@ namespace GBGR.Skill.Editor
 
             if (OpenFileDialog.ShowDialog() == DialogResult.OK)
             {
-                CustomInit();
-                LocaleInit();
+                InitDataTable();
+                LoadSkillList();
             }
             else
             {
                 return;
-            }
-
-            if (SaveFileDialog != null)
-            {
-                SaveFileDialog = new SaveFileDialog
-                {
-                    Filter = "tbl files (*.tbl)|*.tbl",
-                    Title = "Save File",
-                    FileName = "skill_status.tbl" // 預設檔案名稱
-                };
             }
 
             var ms = new MemoryStream();
@@ -327,23 +320,7 @@ namespace GBGR.Skill.Editor
 
             // 2024/03/08 fix Crabvestment Returns issue
             OrignalStr = str[24..] + "-";
-            // 前有8組byte 要先減掉
-            // 9 SET
-            // 1 Param 1
-            // 2 Param 2
-            // 3 Param 3
-            // 4 None
-            // 5 None
-            // 6 None
-            // 7 Skill Id
-            // 8 Unique Skill Id
-            // 9 Skill Level
         }
-
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            isNewSave = true;
-            SaveTblFile();
-        }
+        #endregion
     }
 }

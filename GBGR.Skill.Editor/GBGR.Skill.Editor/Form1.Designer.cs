@@ -1,4 +1,4 @@
-﻿namespace GBGR.Skill.Editor
+namespace GBGR.Skill.Editor
 {
     partial class Form1
     {
@@ -30,37 +30,37 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             SkillListComboBox = new ComboBox();
-            dataGridView1 = new DataGridView();
+            DataGridView1 = new DataGridView();
             SaveButton = new Button();
             menuStrip1 = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            openToolStripMenuItem = new ToolStripMenuItem();
-            saveAsToolStripMenuItem = new ToolStripMenuItem();
-            label1 = new Label();
+            FileToolStripMenuItem = new ToolStripMenuItem();
+            OpenToolStripMenuItem = new ToolStripMenuItem();
+            SaveAsToolStripMenuItem = new ToolStripMenuItem();
+            SkillLabel = new Label();
             LocaleList = new ComboBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridView1).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // SkillListComboBox
-            // 
+            //
             SkillListComboBox.FormattingEnabled = true;
             SkillListComboBox.Location = new Point(81, 28);
             SkillListComboBox.Name = "SkillListComboBox";
             SkillListComboBox.Size = new Size(208, 23);
             SkillListComboBox.TabIndex = 0;
             SkillListComboBox.SelectedValueChanged += SkillList_SelectedValueChanged;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 56);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(776, 397);
-            dataGridView1.TabIndex = 1;
-            // 
+            //
+            // DataGridView1
+            //
+            DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DataGridView1.Location = new Point(12, 56);
+            DataGridView1.Name = "DataGridView1";
+            DataGridView1.Size = new Size(776, 397);
+            DataGridView1.TabIndex = 1;
+            //
             // SaveButton
-            // 
+            //
             SaveButton.Location = new Point(295, 27);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(75, 23);
@@ -68,73 +68,72 @@
             SaveButton.Text = "Save";
             SaveButton.UseVisualStyleBackColor = true;
             SaveButton.Click += SaveButton_Click;
-            // 
+            //
             // menuStrip1
-            // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            //
+            menuStrip1.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 24);
             menuStrip1.TabIndex = 3;
             menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openToolStripMenuItem, saveAsToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 20);
-            fileToolStripMenuItem.Text = "File";
-            // 
-            // openToolStripMenuItem
-            // 
-            openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
-            openToolStripMenuItem.Text = "Open";
-            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(180, 22);
-            saveAsToolStripMenuItem.Text = "Save As";
-            saveAsToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 31);
-            label1.Name = "label1";
-            label1.Size = new Size(28, 15);
-            label1.TabIndex = 4;
-            label1.Text = "Skill";
-            // 
+            //
+            // FileToolStripMenuItem
+            //
+            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { OpenToolStripMenuItem, SaveAsToolStripMenuItem });
+            FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            FileToolStripMenuItem.Size = new Size(37, 20);
+            FileToolStripMenuItem.Text = "File";
+            //
+            // OpenToolStripMenuItem
+            //
+            OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
+            OpenToolStripMenuItem.Size = new Size(114, 22);
+            OpenToolStripMenuItem.Text = "Open";
+            OpenToolStripMenuItem.Click += OpenToolStripMenuItem_Click;
+            //
+            // SaveAsToolStripMenuItem
+            //
+            SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
+            SaveAsToolStripMenuItem.Size = new Size(114, 22);
+            SaveAsToolStripMenuItem.Text = "Save As";
+            SaveAsToolStripMenuItem.Click += SaveAsToolStripMenuItem_Click;
+            //
+            // SkillLabel
+            //
+            SkillLabel.AutoSize = true;
+            SkillLabel.Location = new Point(12, 31);
+            SkillLabel.Name = "SkillLabel";
+            SkillLabel.Size = new Size(28, 15);
+            SkillLabel.TabIndex = 4;
+            SkillLabel.Text = "Skill";
+            //
             // LocaleList
-            // 
+            //
             LocaleList.FormattingEnabled = true;
-            LocaleList.Items.AddRange(new object[] { "en-US", "ja-JP", "zh-TW", "zh-CN" });
             LocaleList.Location = new Point(667, 28);
             LocaleList.Name = "LocaleList";
             LocaleList.Size = new Size(121, 23);
             LocaleList.TabIndex = 5;
             LocaleList.Text = "en-US";
             LocaleList.SelectedValueChanged += LocaleList_SelectedValueChanged;
-            // 
+            //
             // Form1
-            // 
+            //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 464);
             Controls.Add(LocaleList);
-            Controls.Add(label1);
+            Controls.Add(SkillLabel);
             Controls.Add(SaveButton);
-            Controls.Add(dataGridView1);
+            Controls.Add(DataGridView1);
             Controls.Add(SkillListComboBox);
             Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "GBFR Skill Editor";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DataGridView1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -144,13 +143,13 @@
         #endregion
 
         private ComboBox SkillListComboBox;
-        private DataGridView dataGridView1;
+        private DataGridView DataGridView1;
         private Button SaveButton;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem openToolStripMenuItem;
-        private Label label1;
+        private ToolStripMenuItem FileToolStripMenuItem;
+        private ToolStripMenuItem OpenToolStripMenuItem;
+        private Label SkillLabel;
         private ComboBox LocaleList;
-        private ToolStripMenuItem saveAsToolStripMenuItem;
+        private ToolStripMenuItem SaveAsToolStripMenuItem;
     }
 }

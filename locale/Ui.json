@@ -1,0 +1,34 @@
+[
+    {
+        "Code": "en-US",
+        "fileToolStripMenuItem": "File",
+        "openToolStripMenuItem": "Open",
+        "saveAsToolStripMenuItem": "Save As",
+        "SaveButton": "Save",
+        "SkillLabel": "Skill"
+    },
+    {
+        "Code": "ja-JP",
+        "fileToolStripMenuItem": "ファイル",
+        "openToolStripMenuItem": "開く",
+        "saveAsToolStripMenuItem": "名前を付けて保存",
+        "SaveButton": "セーブ",
+        "SkillLabel": "スキル"
+    },
+    {
+        "Code": "zh-TW",
+        "fileToolStripMenuItem": "檔案",
+        "openToolStripMenuItem": "開啟",
+        "saveAsToolStripMenuItem": "另存新檔",
+        "SaveButton": "儲存",
+        "SkillLabel": "技能"
+    },
+    {
+        "Code": "zh-CN",
+        "fileToolStripMenuItem": "文件",
+        "openToolStripMenuItem": "打开",
+        "saveAsToolStripMenuItem": "另存为",
+        "SaveButton": "保存",
+        "SkillLabel": "技能"
+    }
+]
