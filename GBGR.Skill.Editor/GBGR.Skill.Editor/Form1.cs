@@ -5,6 +5,7 @@ namespace GBGR.Skill.Editor
 {
     public partial class Form1 : Form
     {
+        internal static string CurrentSkillId = "";
         internal static string CurrentLocale = "";
         internal static string EditedStr = "";
         internal static string NullStr = "00-00-00-00-";
@@ -44,7 +45,12 @@ namespace GBGR.Skill.Editor
 
         private void SkillList_SelectedValueChanged(object sender, EventArgs e)
         {
-            GetCurrentSkill();
+            GetCurrentSkillId();
+
+            if (CurrentSkillId == "B0 E0 7A 88" || CurrentSkillId == "")
+                return;
+
+            GetSkillParameter();
 
             LoadSkillParameterToDataTable();
         }
@@ -86,7 +92,7 @@ namespace GBGR.Skill.Editor
             DataGridView1.DataSource = Dt;
         }
 
-        private void GetCurrentSkill()
+        private void GetCurrentSkillId()
         {
             if (InitToken && OrignalStr == "")
             {
@@ -95,10 +101,12 @@ namespace GBGR.Skill.Editor
 
             var skill = (Skill)SkillListComboBox.SelectedItem!;
 
-            if (skill.Id == "B0 E0 7A 88" || skill.Id == "")
-                return;
+            CurrentSkillId = skill.Id;
+        }
 
-            var skillId = skill.Id.Replace(" ", "-");
+        private void GetSkillParameter()
+        {
+            var skillId = CurrentSkillId.Replace(" ", "-");
             int lastIndex = 0;
 
             var indexList = new List<int>();
