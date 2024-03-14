@@ -64,7 +64,11 @@ namespace GBGR.Skill.Editor
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             isNewSave = true;
-            SaveTblFile();
+
+            if (OrignalStr != "")
+            {
+                SaveTblFile();
+            }
         }
 
         private void InitDataTable()
