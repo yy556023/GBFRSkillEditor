@@ -56,7 +56,7 @@ namespace GBGR.Skill.Editor
             DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGridView1.Location = new Point(12, 56);
             DataGridView1.Name = "DataGridView1";
-            DataGridView1.Size = new Size(776, 397);
+            DataGridView1.Size = new Size(963, 397);
             DataGridView1.TabIndex = 1;
             //
             // SaveButton
@@ -74,7 +74,7 @@ namespace GBGR.Skill.Editor
             menuStrip1.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.Size = new Size(987, 24);
             menuStrip1.TabIndex = 3;
             menuStrip1.Text = "menuStrip1";
             //
@@ -82,20 +82,20 @@ namespace GBGR.Skill.Editor
             //
             FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { OpenToolStripMenuItem, SaveAsToolStripMenuItem });
             FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            FileToolStripMenuItem.Size = new Size(37, 20);
+            FileToolStripMenuItem.Size = new Size(38, 20);
             FileToolStripMenuItem.Text = "File";
             //
             // OpenToolStripMenuItem
             //
             OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
-            OpenToolStripMenuItem.Size = new Size(114, 22);
+            OpenToolStripMenuItem.Size = new Size(117, 22);
             OpenToolStripMenuItem.Text = "Open";
             OpenToolStripMenuItem.Click += OpenToolStripMenuItem_Click;
             //
             // SaveAsToolStripMenuItem
             //
             SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
-            SaveAsToolStripMenuItem.Size = new Size(114, 22);
+            SaveAsToolStripMenuItem.Size = new Size(117, 22);
             SaveAsToolStripMenuItem.Text = "Save As";
             SaveAsToolStripMenuItem.Click += SaveAsToolStripMenuItem_Click;
             //
@@ -104,14 +104,14 @@ namespace GBGR.Skill.Editor
             SkillLabel.AutoSize = true;
             SkillLabel.Location = new Point(12, 31);
             SkillLabel.Name = "SkillLabel";
-            SkillLabel.Size = new Size(28, 15);
+            SkillLabel.Size = new Size(29, 15);
             SkillLabel.TabIndex = 4;
             SkillLabel.Text = "Skill";
             //
             // LocaleList
             //
             LocaleList.FormattingEnabled = true;
-            LocaleList.Location = new Point(667, 28);
+            LocaleList.Location = new Point(854, 27);
             LocaleList.Name = "LocaleList";
             LocaleList.Size = new Size(121, 23);
             LocaleList.TabIndex = 5;
@@ -122,7 +122,7 @@ namespace GBGR.Skill.Editor
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 464);
+            ClientSize = new Size(987, 464);
             Controls.Add(LocaleList);
             Controls.Add(SkillLabel);
             Controls.Add(SaveButton);

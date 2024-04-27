@@ -11,7 +11,6 @@ namespace GBGR.Skill.Editor
         internal static string NullStr = "00-00-00-00-";
         internal static string OrignalStr = "";
         internal static string StartStr = "";
-        internal static string SkillId = "";
 
         internal static int SkillIndex = 0;
         internal static int SkillLength = 0;
@@ -88,6 +87,8 @@ namespace GBGR.Skill.Editor
             Dt.Columns.Add("Param 4");
             Dt.Columns.Add("Param 5");
             Dt.Columns.Add("Param 6");
+            Dt.Columns.Add("Skill ID").ReadOnly = true;
+            Dt.Columns.Add("Unique ID").ReadOnly = true;
 
             DataGridView1.DataSource = Dt;
         }
@@ -125,7 +126,6 @@ namespace GBGR.Skill.Editor
             SkillIndex = indexList[0];
             SkillLength = indexList.Count * 108;
             SkillList = skillList;
-            SkillId = skillList[0].Substring(72, 24);
         }
 
         private void LoadSkillParameterToDataTable()
@@ -138,14 +138,24 @@ namespace GBGR.Skill.Editor
 
                 var row = Dt.NewRow();
 
+                // - Level
                 row[0] = Convert.ToInt32(temp[32], 16);
+                // - Param 1
                 row[1] = BitConverter.ToSingle([Convert.ToByte(temp[0], 16), Convert.ToByte(temp[1], 16), Convert.ToByte(temp[2], 16), Convert.ToByte(temp[3], 16)]);
+                // - Param 2
                 row[2] = BitConverter.ToSingle([Convert.ToByte(temp[4], 16), Convert.ToByte(temp[5], 16), Convert.ToByte(temp[6], 16), Convert.ToByte(temp[7], 16)]);
+                // - Param 3
                 row[3] = BitConverter.ToSingle([Convert.ToByte(temp[8], 16), Convert.ToByte(temp[9], 16), Convert.ToByte(temp[10], 16), Convert.ToByte(temp[11], 16)]);
+                // - Param 4
                 row[4] = BitConverter.ToSingle([Convert.ToByte(temp[12], 16), Convert.ToByte(temp[13], 16), Convert.ToByte(temp[14], 16), Convert.ToByte(temp[15], 16)]);
+                // - Param 5
                 row[5] = BitConverter.ToSingle([Convert.ToByte(temp[16], 16), Convert.ToByte(temp[17], 16), Convert.ToByte(temp[18], 16), Convert.ToByte(temp[19], 16)]);
+                // - Param 6
                 row[6] = BitConverter.ToSingle([Convert.ToByte(temp[20], 16), Convert.ToByte(temp[21], 16), Convert.ToByte(temp[22], 16), Convert.ToByte(temp[23], 16)]);
-
+                // - Skill ID
+                row[7] = temp[24] + "-" + temp[25] + "-" + temp[26] + "-" + temp[27] + "-";
+                // - Unique Id
+                row[8] = temp[28] + "-" + temp[29] + "-" + temp[30] + "-" + temp[31] + "-";
                 Dt.Rows.Add(row);
             }
         }
@@ -173,12 +183,13 @@ namespace GBGR.Skill.Editor
                 var param4 = ConvertToHex(row, 4) + "-";
                 var param5 = ConvertToHex(row, 5) + "-";
                 var param6 = ConvertToHex(row, 6) + "-";
+                var skillId = row[7] + "" + row[8];
 
                 var level = Convert.ToInt32(row[0]).ToString("X2") + "-00-00-00-";
 
                 // SkillId: 9B-1A-F1-71-FC-05-A8-7B-
                 // level: 01-00-00-00-
-                var tempSkill = param1 + param2 + param3 + param4 + param5 + param6 + SkillId + level;
+                var tempSkill = param1 + param2 + param3 + param4 + param5 + param6 + skillId + level;
 
                 editedSkill += tempSkill;
             }
