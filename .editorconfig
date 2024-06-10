@@ -1,0 +1,15 @@
+# editorconfig.org
+root = true
+
+# 設定預設行尾字符為 LF，適用於所有文件
+[*]
+end_of_line = lf
+
+# 設定字符編碼
+charset = utf-8
+
+# 移除文件末尾的多餘空行
+trim_trailing_whitespace = true
+
+# 確保文件末尾有一個空行
+insert_final_newline = true
