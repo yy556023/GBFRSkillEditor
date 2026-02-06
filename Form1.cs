@@ -51,6 +51,65 @@ namespace GBGR.Skill.Editor
             SaveTblFile();
         }
 
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            GetCurrentSkillId();
+
+            if (string.IsNullOrEmpty(_currentSkillId))
+            {
+                MessageBox.Show("Please select a skill first.", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_originalHexString))
+            {
+                MessageBox.Show("Please open a .tbl file first.", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var originalPath = Path.Combine(basePath, "original", "skill_status.tbl");
+
+            if (!File.Exists(originalPath))
+            {
+                MessageBox.Show($"Original file not found: {originalPath}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!TryReadTblHexString(originalPath, out var originalHexString, out var readError))
+            {
+                MessageBox.Show(readError, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!TryGetSkillSegments(originalHexString, _currentSkillId, out var originalIndex, out var originalLength, out var originalSkillList))
+            {
+                MessageBox.Show("Skill not found in original file.", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!TryGetSkillSegments(_originalHexString, _currentSkillId, out var currentIndex, out var currentLength, out _))
+            {
+                MessageBox.Show("Skill not found in current file.", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var originalSkillHex = originalHexString.Substring(originalIndex, originalLength);
+            _originalHexString = _originalHexString[..currentIndex] + originalSkillHex + _originalHexString[(currentIndex + currentLength)..];
+
+            _skillIndex = currentIndex;
+            _skillLength = originalLength;
+            _skillList = originalSkillList;
+
+            PopulateSkillDataTable();
+        }
+
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenTblFile();
@@ -363,6 +422,7 @@ namespace GBGR.Skill.Editor
             OpenToolStripMenuItem.Text = currentUiText.OpenToolStripMenuItem;
             SaveAsToolStripMenuItem.Text = currentUiText.SaveAsToolStripMenuItem;
             SaveButton.Text = currentUiText.SaveButton;
+            ResetButton.Text = currentUiText.ResetButton;
             SkillLabel.Text = currentUiText.SkillLabel;
         }
 
@@ -502,20 +562,13 @@ namespace GBGR.Skill.Editor
                 InitializeSkillDataTable();
                 LoadSkillList();
 
-                using var stream = File.OpenRead(filePath);
-                using var memoryStream = new MemoryStream();
-                stream.CopyTo(memoryStream);
-
-                byte[] dataBytes = memoryStream.ToArray();
-
-                if (dataBytes.Length < HEADER_LENGTH)
+                if (!TryReadTblHexString(filePath, out var hexString, out var errorMessage))
                 {
-                    MessageBox.Show("Invalid file format: File too small", "Error",
+                    MessageBox.Show(errorMessage, "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                var hexString = BitConverter.ToString(dataBytes, 0, dataBytes.Length);
                 _fileHeader = hexString[..HEADER_LENGTH];
 
                 // 2024/03/08 fix Crabvestment Returns issue
@@ -531,6 +584,83 @@ namespace GBGR.Skill.Editor
                 MessageBox.Show($"No permission to read file: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private static bool TryReadTblHexString(string filePath, out string hexString, out string errorMessage)
+        {
+            hexString = string.Empty;
+            errorMessage = string.Empty;
+
+            try
+            {
+                using var stream = File.OpenRead(filePath);
+                using var memoryStream = new MemoryStream();
+                stream.CopyTo(memoryStream);
+
+                byte[] dataBytes = memoryStream.ToArray();
+
+                if (dataBytes.Length < HEADER_LENGTH)
+                {
+                    errorMessage = "Invalid file format: File too small";
+                    return false;
+                }
+
+                hexString = BitConverter.ToString(dataBytes, 0, dataBytes.Length);
+                return true;
+            }
+            catch (IOException ex)
+            {
+                errorMessage = $"Failed to open file: {ex.Message}";
+                return false;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                errorMessage = $"No permission to read file: {ex.Message}";
+                return false;
+            }
+        }
+
+        private static bool TryGetSkillSegments(string hexString, string skillId, out int index, out int length, out List<string> skillList)
+        {
+            index = 0;
+            length = 0;
+            skillList = [];
+
+            if (string.IsNullOrEmpty(hexString) || string.IsNullOrEmpty(skillId))
+            {
+                return false;
+            }
+
+            var skillIdToken = skillId.Replace(" ", "-");
+            int lastIndex = 0;
+
+            var indexList = new List<int>();
+            var list = new List<string>();
+
+            while ((lastIndex = hexString.IndexOf(skillIdToken, lastIndex)) != -1)
+            {
+                var currentIndex = lastIndex - SKILL_ID_OFFSET;
+
+                if (currentIndex < 0 || currentIndex + SKILL_LEVEL_LENGTH > hexString.Length)
+                {
+                    lastIndex += skillIdToken.Length;
+                    continue;
+                }
+
+                indexList.Add(currentIndex);
+                list.Add(hexString.Substring(currentIndex, SKILL_LEVEL_LENGTH));
+                lastIndex += skillIdToken.Length;
+            }
+
+            if (indexList.Count == 0)
+            {
+                return false;
+            }
+
+            index = indexList[0];
+            length = indexList.Count * SKILL_LEVEL_LENGTH;
+            skillList = list;
+            return true;
         }
     }
 }

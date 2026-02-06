@@ -1,4 +1,4 @@
-﻿namespace GBGR.Skill.Editor;
+namespace GBGR.Skill.Editor;
 
 internal class Skill
 {

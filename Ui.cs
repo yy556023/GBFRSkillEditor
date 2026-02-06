@@ -1,4 +1,4 @@
-﻿namespace GBGR.Skill.Editor;
+namespace GBGR.Skill.Editor;
 
 public class Ui
 {
@@ -7,5 +7,6 @@ public class Ui
     public string OpenToolStripMenuItem { get; set; } = default!;
     public string SaveAsToolStripMenuItem { get; set; } = default!;
     public string SaveButton { get; set; } = default!;
+    public string ResetButton { get; set; } = default!;
     public string SkillLabel { get; set; } = default!;
 }

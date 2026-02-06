@@ -38,29 +38,30 @@ namespace GBGR.Skill.Editor
             SaveAsToolStripMenuItem = new ToolStripMenuItem();
             SkillLabel = new Label();
             LocaleList = new ComboBox();
+            ResetButton = new Button();
             ((System.ComponentModel.ISupportInitialize)DataGridView1).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
-            //
+            // 
             // SkillListComboBox
-            //
+            // 
             SkillListComboBox.FormattingEnabled = true;
             SkillListComboBox.Location = new Point(81, 28);
             SkillListComboBox.Name = "SkillListComboBox";
             SkillListComboBox.Size = new Size(208, 23);
             SkillListComboBox.TabIndex = 0;
             SkillListComboBox.SelectedValueChanged += SkillList_SelectedValueChanged;
-            //
+            // 
             // DataGridView1
-            //
+            // 
             DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGridView1.Location = new Point(12, 56);
             DataGridView1.Name = "DataGridView1";
             DataGridView1.Size = new Size(963, 397);
             DataGridView1.TabIndex = 1;
-            //
+            // 
             // SaveButton
-            //
+            // 
             SaveButton.Location = new Point(295, 27);
             SaveButton.Name = "SaveButton";
             SaveButton.Size = new Size(75, 23);
@@ -68,48 +69,48 @@ namespace GBGR.Skill.Editor
             SaveButton.Text = "Save";
             SaveButton.UseVisualStyleBackColor = true;
             SaveButton.Click += SaveButton_Click;
-            //
+            // 
             // menuStrip1
-            //
+            // 
             menuStrip1.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(987, 24);
             menuStrip1.TabIndex = 3;
             menuStrip1.Text = "menuStrip1";
-            //
+            // 
             // FileToolStripMenuItem
-            //
+            // 
             FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { OpenToolStripMenuItem, SaveAsToolStripMenuItem });
             FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            FileToolStripMenuItem.Size = new Size(38, 20);
+            FileToolStripMenuItem.Size = new Size(37, 20);
             FileToolStripMenuItem.Text = "File";
-            //
+            // 
             // OpenToolStripMenuItem
-            //
+            // 
             OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
-            OpenToolStripMenuItem.Size = new Size(117, 22);
+            OpenToolStripMenuItem.Size = new Size(114, 22);
             OpenToolStripMenuItem.Text = "Open";
             OpenToolStripMenuItem.Click += OpenToolStripMenuItem_Click;
-            //
+            // 
             // SaveAsToolStripMenuItem
-            //
+            // 
             SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
-            SaveAsToolStripMenuItem.Size = new Size(117, 22);
+            SaveAsToolStripMenuItem.Size = new Size(114, 22);
             SaveAsToolStripMenuItem.Text = "Save As";
             SaveAsToolStripMenuItem.Click += SaveAsToolStripMenuItem_Click;
-            //
+            // 
             // SkillLabel
-            //
+            // 
             SkillLabel.AutoSize = true;
             SkillLabel.Location = new Point(12, 31);
             SkillLabel.Name = "SkillLabel";
-            SkillLabel.Size = new Size(29, 15);
+            SkillLabel.Size = new Size(28, 15);
             SkillLabel.TabIndex = 4;
             SkillLabel.Text = "Skill";
-            //
+            // 
             // LocaleList
-            //
+            // 
             LocaleList.FormattingEnabled = true;
             LocaleList.Location = new Point(854, 27);
             LocaleList.Name = "LocaleList";
@@ -117,14 +118,25 @@ namespace GBGR.Skill.Editor
             LocaleList.TabIndex = 5;
             LocaleList.Text = "en-US";
             LocaleList.SelectedValueChanged += LocaleList_SelectedValueChanged;
-            //
+            // 
+            // ResetButton
+            // 
+            ResetButton.Location = new Point(422, 28);
+            ResetButton.Name = "ResetButton";
+            ResetButton.Size = new Size(75, 23);
+            ResetButton.TabIndex = 2;
+            ResetButton.Text = "Reset";
+            ResetButton.UseVisualStyleBackColor = true;
+            ResetButton.Click += ResetButton_Click;
+            // 
             // Form1
-            //
+            // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(987, 464);
             Controls.Add(LocaleList);
             Controls.Add(SkillLabel);
+            Controls.Add(ResetButton);
             Controls.Add(SaveButton);
             Controls.Add(DataGridView1);
             Controls.Add(SkillListComboBox);
@@ -151,5 +163,6 @@ namespace GBGR.Skill.Editor
         private Label SkillLabel;
         private ComboBox LocaleList;
         private ToolStripMenuItem SaveAsToolStripMenuItem;
+        private Button ResetButton;
     }
 }
