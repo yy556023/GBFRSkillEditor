@@ -24,4 +24,8 @@
 	</Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="b263abe5072c23fa8bda9d66807508cf.ico" />
+  </ItemGroup>
+
 </Project>
